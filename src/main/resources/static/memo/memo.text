@@ -1,0 +1,57 @@
+☆開発者用メモ
+
+◆ローカルDB
+・DB名
+matching_app
+・ロール名
+test
+
+◆ローカルリポジトリのPATH
+C:\eclipse\pleiades\workspace\SpringBoot_MatchingAPP
+
+◆追加したい機能
+●ユーザー登録機能
+〆ユーザー登録段階でユーザータイプ(0==student , 1==engineer)をそれぞれ決定し、ユーザータイプに応じたテーブルを作成する機能
+・サムネイルテーブルを用意してユーザープロフィールのサムネイル画像を設定できるようにしたい
+・登録段階でメールアドレスにURLを送信し、そのURLを踏むことでアクティベーション可能になる機能
+・パスワードの暗号化機能（できれば自作のバリデーションチェックを追加もしたい）
+・
+●ログイン機能
+・
+●プロフィール編集機能
+●メインコンテンツ
+・求職者の一覧を表示できる機能
+●メッセージ機能
+・メッセージ承認機能
+・template文を登録できる機能
+●気になる人を登録できる機能
+●気に入らない人を非表示(ブロック)できる機能
+●通報機能
+●管理者機能
+
+
+◆発生した問題
+
+●bit型（SQL）boolean型（ENTITYクラス）のキャストの仕方がわからない
+
+・発生日 11/04
+
+・参考URL
+https://qiita.com/seiketkm/items/9d069348c2906a6ae011
+https://confrage.jp/spring-boot%E3%81%A7postgresql%E3%81%AEbit1%E3%81%AB%E3%82%A4%E3%83%B3%E3%82%B5%E3%83%BC%E3%83%88%E3%81%99%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AB%E3%83%8F%E3%83%9E%E3%81%A3%E3%81%9F/
+
+・解決方法
+SQLサーバー側で自動で型変換ができるようになる代入コンテキスト（ASSIGNMENT）を定義することで、異なる型のCASTを定義。
+
+・実装コード
+
+CREATE FUNCTION b2n(bool) RETURNS Bit AS
+'select
+  case
+    when $1 IS TRUE
+    then CAST(1 AS Bit)
+    else CAST(0 AS Bit)
+    end;'
+LANGUAGE SQL;
+
+create cast(bool as Bit) WITH FUNCTION b2n(bool) AS ASSIGNMENT;
