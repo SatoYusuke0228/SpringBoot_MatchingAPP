@@ -11,6 +11,11 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRepository repository;
 
+	@Override
+	public void save(UserEntity entity) {
+		repository.save(entity);
+	}
+
 	/**
 	 * Insert文 && Update文の実装メソッド
 	 *

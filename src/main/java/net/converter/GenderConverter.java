@@ -31,6 +31,8 @@ public class GenderConverter implements AttributeConverter<String, Integer> {
 
 		switch (genderInDB) {
 
+		case (0):
+			gender = "不明";
 		case (1):
 			gender = "男性";
 		case (2):

@@ -133,7 +133,7 @@ public class UserRegistrationController {
 		UserEntity userEntity = new UserEntity(userRegistration);
 
 		//USERテーブルへの新規登録処理を記述
-		//userService.saveAndFlash(userEntity);
+		userService.save(userEntity);
 
 		//ここにサムネイルテーブルの新規登録処理を記述
 		//TumbnailEntity tumbnailEntity = new TumbnailEntity(userEntity.getId());
