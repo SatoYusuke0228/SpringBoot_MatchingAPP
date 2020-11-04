@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>入力画面</title>
+</head>
+<body>
+	<main th:object="${userRegistration}" >
+
+		<div class="maincol">
+			<form th:action="@{'/user/registration/' + ${userType} + '/confirmation'}" method="POST">
+
+				<!--/* 決定済みのユーザータイプ */-->
+				<input type="hidden" th:field="*{userType}" th:value="*{userType}" />
+
+				<!--/* ここから未入力項目 */-->
+				<div>
+
+					<!--/* パスワード */-->
+					<div class="form-row">
+						<!--/* パスワード１回目の入力 */-->
+						<div class="form-group col-md-6">
+							<label for="password"> パスワード </label> <br> <input
+								type="text" th:field="*{password}" class="form-control" /> <span
+								th:if="${#fields.hasErrors('password')}" th:errors="*{password}">ErrorMessage</span>
+						</div>
+
+						<!--/* パスワード２回目の入力(確認) */-->
+						<div class="form-group col-md-6">
+							<label for="password_auth"> パスワード確認 </label> <br> <input
+								type="text" th:field="*{password_auth}" class="form-control" />
+							<span th:if="${#fields.hasErrors('password_auth')}"
+								th:errors="*{password_auth}"> ErrorMessage</span>
+						</div>
+					</div>
+
+					<!--/* 名前 */-->
+					<div class="form-row">
+
+						<!--/* 性 */-->
+						<div class="form-group col-md-6">
+							<label for="firstName"> 姓 </label> <br> <input type="text"
+								th:field="*{firstName}" class="form-control" /> <span
+								th:if="${#fields.hasErrors('firstName')}"
+								th:errors="*{firstName}">ErrorMessage</span>
+						</div>
+
+						<!--/* 名 */-->
+						<div class="form-group col-md-6">
+							<label for="lastName"> 名 </label> <br> <input type="text"
+								th:field="*{lastName}" class="form-control" /> <span
+								th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">
+								ErrorMessage</span>
+						</div>
+					</div>
+
+					<!--/* 性別 */-->
+					<div class="form-group">
+						<label for="gender">性別</label> <br> <input type="radio"
+							class="form-control" th:field="*{gender}" id="male" th:value="男性" />
+						男性 <input type="radio" class="form-control" th:field="*{gender}"
+							id="female" th:value="女性" /> 女性 <input type="radio"
+							class="form-control" th:field="*{gender}" id="other" th:value="その他" />
+						その他
+					</div>
+
+					<!--/* 電話番号 */-->
+					<div class="form-group">
+						<label for="tell">電話番号(-なしで入力してください)</label> <br> <input
+							type="text" th:field="*{tell}" class="form-control" /> <span
+							th:if="${#fields.hasErrors('tell')}" th:errors="*{tell}">ErrorMessage</span>
+					</div>
+
+					<!--/* メール */-->
+					<div class="form-group">
+						<label for="mail">メールアドレス</label> <br> <input type="text"
+							th:field="*{mail}" class="form-control" /> <span
+							th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}">ErrorMessage</span>
+					</div>
+
+				</div>
+
+				<!--/* 確認画面ボタン */-->
+				<div>
+					<br> <button type="submit">確認画面へ進む</button>
+				</div>
+
+			</form>
+		</div>
+	</main>
+</body>
+</html>
