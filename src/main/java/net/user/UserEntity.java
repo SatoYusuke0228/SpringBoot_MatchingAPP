@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import javax.transaction.Transactional;
 
 import lombok.Data;
-import net.converter.GenderConverter;
+import net.common.GenderConverter;
 import net.user.registration.UserRegistration;
 
 @Entity
@@ -90,6 +90,10 @@ public class UserEntity {
 		this.tell = userRegistration.getTell();
 		this.mail = userRegistration.getMail();
 		this.registrationDate = new Timestamp(System.currentTimeMillis());
+	}
+
+	public UserEntity() {
+		super();
 	}
 
 	//	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

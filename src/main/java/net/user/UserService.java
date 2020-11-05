@@ -19,5 +19,5 @@ public abstract interface UserService {
 	/**
 	 * テーブル内の全件を取得するメソッド
 	 */
-	public List<UserEntity> findAll();
+	public abstract List<UserEntity> findAll();
 }

@@ -8,7 +8,7 @@
 	<main th:object="${userRegistration}" >
 
 		<div class="maincol">
-			<form th:action="@{'/user/registration/' + ${userType} + '/confirmation'}" method="POST">
+			<form th:action="@{'/user/registration/confirmation'}" method="POST">
 
 				<!--/* 決定済みのユーザータイプ */-->
 				<input type="hidden" th:field="*{userType}" th:value="*{userType}" />
