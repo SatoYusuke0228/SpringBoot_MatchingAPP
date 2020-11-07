@@ -30,11 +30,11 @@ public class EmployerEntity {
 	public EmployerEntity() {
 	}
 
-	public EmployerEntity(long id, Employer employee) {
+	public EmployerEntity(long id, Employer employer) {
 
 		this.id = id;
-		this.companyName = employee.getCompanyName();
-		this.companyURL = employee.getCompanyURL();
-		this.selfPR = employee.getSelfPR();
+		this.companyName = employer.getCompanyName();
+		this.companyURL = employer.getCompanyURL();
+		this.selfPR = employer.getSelfPR();
 	}
 }

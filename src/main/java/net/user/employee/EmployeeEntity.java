@@ -62,22 +62,22 @@ public class EmployeeEntity {
 
 	public EmployeeEntity() {}
 
-	public EmployeeEntity(long id, Employee studentRegistration) {
+	public EmployeeEntity(long id, Employee employee) {
 
 		this.id = id;
-		this.birthYear = studentRegistration.getBirthYear();
-		this.birthMonth = studentRegistration.getBirthMonth();
-		this.birthDay = studentRegistration.getBirthDay();
+		this.birthYear = employee.getBirthYear();
+		this.birthMonth = employee.getBirthMonth();
+		this.birthDay = employee.getBirthDay();
 //		this.zipcode = zipcode;
 //		this.address = address;
 //		this.buildingName = buildingName;
-		this.schoolType = studentRegistration.getSchoolType();
-		this.schoolName =studentRegistration.getSchoolName();
-		this.faculty = studentRegistration.getFaculty();
-		this.department = studentRegistration.getDepartment();
-		this.graduate = studentRegistration.getGraduate();
-		this.graduateYear = studentRegistration.getGraduateYear();
-		this.graduateMonth = studentRegistration.getGraduateMonth();
-		this.selfPR = studentRegistration.getSelfPR();
+		this.schoolType = employee.getSchoolType();
+		this.schoolName =employee.getSchoolName();
+		this.faculty = employee.getFaculty();
+		this.department = employee.getDepartment();
+		this.graduate = employee.getGraduate();
+		this.graduateYear = employee.getGraduateYear();
+		this.graduateMonth = employee.getGraduateMonth();
+		this.selfPR = employee.getSelfPR();
 	}
 }
