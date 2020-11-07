@@ -5,7 +5,7 @@
 <title>入力画面</title>
 </head>
 <body>
-	<main th:object="${userRegistration}" >
+	<main th:object="${user}" >
 
 		<div class="maincol">
 			<form th:action="@{'/user/registration/confirmation'}" method="POST">
@@ -78,6 +78,14 @@
 							th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}">ErrorMessage</span>
 					</div>
 
+				</div>
+
+				<div th:if="${userType == 0}">
+					<!--/* 求職者form */-->
+				</div>
+
+				<div th:if="${userType == 1}">
+					<!--/* 雇用者form */-->
 				</div>
 
 				<!--/* 確認画面ボタン */-->
