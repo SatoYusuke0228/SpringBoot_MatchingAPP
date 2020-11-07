@@ -1,4 +1,4 @@
-package net.user.registration;
+package net.user;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class UserRegistration {
+public class User {
 
 	private int userType;
 
@@ -33,13 +33,17 @@ public class UserRegistration {
 	private String gender;
 
 	@Email
-	@Size(min = 1, max = 256, message = "※")
+	@Size(min = 1, max = 256)
 	@NotBlank
 	private String mail;
 
-	@Pattern(regexp = "0(60|70|80|90|120|\\d{1,3})\\d{2,4}\\d{3,4}")
+	@Pattern(regexp = "0(60|70|80|90|\\d{1,3})\\d{4}\\d{4}")
 	@NotBlank
 	private String tell;
+
+	//登録地域
+	//@NotBlank
+	//private String registrationArea;
 
 	/**
 	 * コンストラクタ
@@ -47,7 +51,7 @@ public class UserRegistration {
 	 * そのユーザータイプ名を元にコンストラクタ作成した段階でユーザータイプのみ決定
 	 * @param userType
 	 */
-	public UserRegistration(int userType) {
+	public User(int userType) {
 		this.userType = userType;
 	}
 }
