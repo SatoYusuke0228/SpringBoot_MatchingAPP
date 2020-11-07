@@ -11,19 +11,34 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRepository repository;
 
+	/**
+	 * insert文の実装メソッド
+	 *
+	 * @param entity
+	 */
 	@Override
 	public void save(UserEntity entity) {
 		repository.save(entity);
 	}
 
 	/**
-	 * Insert文 && Update文の実装メソッド
+	 * update文の実装メソッド
 	 *
 	 * @param entity
 	 */
 	@Override
 	public void saveAndFlash(UserEntity entity) {
 		repository.saveAndFlush(entity);
+	}
+
+	/**
+	 * delete文の実装メソッド
+	 *
+	 * @param entity
+	 */
+	@Override
+	public void delete(UserEntity entity) {
+		repository.delete(entity);
 	}
 
 	/**

@@ -4,12 +4,20 @@ import java.util.List;
 
 public abstract interface UserService {
 
+	/**
+	 * insert文を実行する抽象メソッド
+	 */
 	public abstract void save(UserEntity entity);
 
 	/**
-	 * insert文 update文 を実行する抽象メソッド
+	 * update文を実行する抽象メソッド
 	 */
 	public abstract void saveAndFlash(UserEntity entity);
+
+	/**
+	 * delete文を実行する抽象メソッド
+	 */
+	public abstract void delete(UserEntity entity);
 
 	/**
 	 * ID検索でselect文を実行するメソッド
