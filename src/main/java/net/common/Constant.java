@@ -1,14 +1,24 @@
 package net.common;
 
+/**
+ * 定数値をまとめたクラス
+ * @author SatoYusuke0228
+ */
 public class Constant {
 
-	public final static String PAGE_TITLE = ObjectName.pageTitle.getString();
-	public final static String MESSAGE = ObjectName.message.getString();
+	public final static String PAGE_TITLE = ObjectName.PAGE_TITLE.getString();
+	public final static String MESSAGE = ObjectName.MESSAGE.getString();
+	public final static String REDIRECT = ObjectName.REDIRECT.getString();
+	public final static String USER_TYPE = ObjectName.USER_TYPE.getString();
 
-	public enum ObjectName {
+	public static enum ObjectName {
 
-		pageTitle("pageTitle"), message("message"),
-		userRegistration("userRegistration"), userEntity("userEntity"),
+		PAGE_TITLE("pageTitle"), MESSAGE("message"),
+		REDIRECT("redirect:"), USER_TYPE("userType"),
+
+		USER("user"), USER_ENTITY("userEntity"),
+		EMPLOYEE("employee"), EMPLOYEE_ENTITY("employeeEntity"),
+		EMPLOYER("employer"), EMPLOYER_ENTITY("employerEntity"),
 		;
 
 		private final String text;
@@ -24,7 +34,13 @@ public class Constant {
 
 	public class FolderName {
 
+		public static final String SRC = "/src";
+		public static final String MAIN = "/main";
+		public static final String RESOURCES = "/resoucers";
+
 		public static final String USER = "/user";
+		public static final String STUDENT = "/student";
+		public static final String ENGINEER = "/engineer";
 		public static final String REGISTRATION = "/registration";
 	}
 
