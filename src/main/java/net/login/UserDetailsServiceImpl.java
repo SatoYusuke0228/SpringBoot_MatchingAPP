@@ -1,37 +1,54 @@
 package net.login;
 
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import net.user.UserEntity;
-import net.user.UserEntityAndAuthorities;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Autowired
-	LoginMapper loginMapper;
+	LoginRepository loginRepository;
+
+	@Autowired
+	PasswordEncoder encoder;
 
 	@Override
-	@Transactional //(readOnly = true)
-	public UserDetails loadUserByUsername(String mailAddress)
-			throws UsernameNotFoundException {
+	@Transactional
+	public UserDetails loadUserByUsername(String mail) throws UsernameNotFoundException {
 
-		//DBからユーザ情報を取得。
-		UserEntity entity = Optional.ofNullable(loginMapper.findAccount(mailAddress))
+		UserEntity userEntity = Optional.ofNullable(loginRepository.findUser(mail))
 				.orElseThrow(() -> new UsernameNotFoundException("User not found."));
 
-		return new UserEntityAndAuthorities(entity, getAuthorities(entity));
+		if (userEntity == null) {
+			System.out.println("User not found.");
+		}
+
+		//権限のリスト
+		//AdminやUserなどが存在するが、今回は利用しないのでUSERのみを仮で設定
+		//権限を利用する場合は、DB上で権限テーブル、ユーザ権限テーブルを作成し管理が必要
+		List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
+		GrantedAuthority authority = new SimpleGrantedAuthority("USER");
+		grantList.add(authority);
+
+		UserDetails userDetails = (UserDetails) new User(userEntity.getMail(),
+				encoder.encode(userEntity.getPassword()), grantList);
+
+		return userDetails;
 	}
 
 	/**
@@ -40,7 +57,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	 * @param entity DBから取得したユーザ情報。
 	 * @return 権限の範囲のリスト。
 	 */
-	private Collection<GrantedAuthority> getAuthorities(UserEntity entity) {
-		return AuthorityUtils.createAuthorityList("ROLE_USER");
-	}
+	//	private Collection<GrantedAuthority> getAuthorities(UserEntity entity) {
+	//
+	//		String authority = new String();
+	//
+	//		if (entity.getUserType() == 0) {
+	//			authority = "EMPLOYEE";
+	//		} else if (entity.getUserType() == 1) {
+	//			authority = "EMPLOYER";
+	//		}
+	//
+	//		return AuthorityUtils.createAuthorityList(authority);
+	//	}
 }

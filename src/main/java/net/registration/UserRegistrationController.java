@@ -1,4 +1,4 @@
-package net.user.registration;
+package net.registration;
 
 import static net.common.Constant.*;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
@@ -55,7 +55,7 @@ public class UserRegistrationController {
 	@Autowired
 	private ThumbnailService thumbnailService;
 
-	private final String FOLDER_PATH = FolderName.USER + FolderName.REGISTRATION;
+	private final String FOLDER_PATH = FolderName.REGISTRATION;
 	private final String USER_OBJECT = ObjectName.USER.getString();
 	private final String USER_ENTITY_OBJECT = ObjectName.USER_ENTITY.getString();
 	private final String EMPLOYEE_OBJECT = ObjectName.EMPLOYEE.getString();
@@ -76,7 +76,7 @@ public class UserRegistrationController {
 
 	//[ユーザー登録ボタン]が押された場合にページを表示する
 	//ＶＩＥＷで,ユーザータイプ(STUDENT or ENGINEER)選択ボタンを表示する
-	@RequestMapping({ "/user/registration", "/user/registration/select-user-type" })
+	@RequestMapping({ "/registration", "/registration/select-user-type" })
 	public String selectUserType() {
 
 		return FOLDER_PATH + FileName.SELECT_USER_TYPE;
@@ -88,7 +88,7 @@ public class UserRegistrationController {
 	//選択されたユーザータイプと入力FORMの内容をUerEntityコンストラクタに代入
 	//そのコンストラクタをスコープに保存
 	//ＶＩＥＷで入力内容確認ボタンを用意する
-	@GetMapping("/user/registration/form/user-type={userType}")
+	@GetMapping("/registration/form/user-type={userType}")
 	public ModelAndView form(
 			@PathVariable String userType,
 			Integer userTypeNum,
@@ -96,7 +96,7 @@ public class UserRegistrationController {
 
 		if ("employee".equals(userType)) {
 			userTypeNum = 0;
-			mav.addObject(EMPLOYEE_OBJECT, new Employee());
+			mav.addObject(EMPLOYEE_OBJECT, new Employee("Test"));
 		} else if ("employer".equals(userType)) {
 			userTypeNum = 1;
 			mav.addObject(EMPLOYER_OBJECT, new Employer());
@@ -115,7 +115,7 @@ public class UserRegistrationController {
 	//[入力内容確認ボタン]が押された場合に表示するページ
 	//前のページの入力情報を確認画面として表示する
 	//ＶＩＥＷで登録完了ボタンを表示する
-	@PostMapping("/user/registration/confirmation")
+	@PostMapping("/registration/confirmation")
 	public ModelAndView confirmation(
 			@Validated User user,
 			BindingResult userBR,
@@ -124,6 +124,9 @@ public class UserRegistrationController {
 			@Validated Employer employer,
 			BindingResult employerBR,
 			ModelAndView mav) {
+
+		System.out.println(user.getFirstName());
+		System.out.println(employee.getFaculty());
 
 		//バリデーションエラーがある場合は元の画面に戻る
 		if (user.getUserType() != 0 && user.getUserType() != 1) {
@@ -140,6 +143,9 @@ public class UserRegistrationController {
 		//パスワードの再入力が間違っている場合は元の画面に戻る
 		final String password = user.getPassword();
 		final String passwordAuth = user.getPassword_auth();
+
+		System.out.println(password);
+		System.out.println(passwordAuth);
 
 		if (!password.equals(passwordAuth) || !passwordAuth.equals(password)) {
 			mav.addObject(MESSAGE, "※パスワードが間違っています");
@@ -182,7 +188,7 @@ public class UserRegistrationController {
 	//	USERテーブルのIDとUSER_TYPEを使用して
 	//	StudentEntityかEngineerEntityのコンストラクタを作成してDBに保存
 	//	ユーザーの登録アドレスに確認メールを送信
-	@RequestMapping("/user/registration/result")
+	@RequestMapping("/registration/result")
 	public ModelAndView result(
 			@SessionAttribute("user") User user,
 			Object hoge,
@@ -210,8 +216,10 @@ public class UserRegistrationController {
 		ThumbnailEntity thumbnailEntity = new ThumbnailEntity(userEntity.getId());
 		thumbnailService.save(thumbnailEntity);
 
-		//メール確認FlagをONにするためのメールの送信処理を記述
-		//hogehogehugahuga
+//		do {
+//		メール確認FlagをONにするためのメールの送信処理を記述
+//		} while(hogehoge);
+
 
 		mav.setViewName(FOLDER_PATH + FileName.RESULT);
 
@@ -220,7 +228,7 @@ public class UserRegistrationController {
 
 	//ユーザーの登録アドレスに受信した登録確認メール内のリンクを踏むことでアカウントのMAIL_VERFIEDを有効化
 	//ユーザー登録時に選択されたユーザータイプに応じてSTUDENT_TABLE or ENGINEER_TABLEを作成する入力FORMを表示
-	@RequestMapping(value = "/student/registration/form/{id}", method = { GET, POST })
+	@RequestMapping(value = "/registration/verified/{id}", method = { GET, POST })
 	public ModelAndView confirMailVerified(
 			@PathVariable Long id,
 			UserEntity userEntity,
@@ -229,12 +237,6 @@ public class UserRegistrationController {
 		userEntity = userService.getOne(id);
 		userEntity.setMailVerified(true);
 		userService.saveAndFlash(userEntity);
-
-		if (userEntity.getUserType() == 0) {
-			//STUDENT_TABLEに新規登録処理を記述
-		} else if (userEntity.getUserType() == 1) {
-			//ENGINEER_TABLEに新規登録処理を記述
-		}
 
 		mav.addObject(USER_ENTITY_OBJECT, userEntity);
 		mav.setViewName(FOLDER_PATH + "");

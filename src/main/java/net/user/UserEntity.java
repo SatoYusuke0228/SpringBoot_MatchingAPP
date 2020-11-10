@@ -14,7 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.transaction.Transactional;
 
 import lombok.Data;
 import net.common.GenderConverter;
@@ -23,7 +22,6 @@ import net.user.thumbnail.ThumbnailEntity;
 @Entity
 @Table(name = "USER_TABLE")
 @Data
-@Transactional
 public class UserEntity {
 	//implements UserDetails { //userDetailsのinterfaceを使うかどうか
 
@@ -83,31 +81,29 @@ public class UserEntity {
 	 * @param firstName
 	 * @param lastName
 	 * @param gender
-	 * @param tell
-	 * @param mail
+	 * @param telle
 	 * @param registrationDate
 	 */
-	public UserEntity(User userRegistration) {
+	public UserEntity(net.user.User user) {
 
-		if (userRegistration.getPassword().equals(userRegistration.getPassword_auth())) {
-			this.password = userRegistration.getPassword();
+		if (user.getPassword().equals(user.getPassword_auth())) {
+			this.password = user.getPassword();
 		}
 
-		this.userType = userRegistration.getUserType();
+		this.userType = user.getUserType();
 		this.activation = true;
 		this.mailVerified = false;
 //		this.showFlag = false;
-		this.firstName = userRegistration.getFirstName();
-		this.lastName = userRegistration.getLastName();
-		this.gender = userRegistration.getGender();
-		this.tell = userRegistration.getTell();
-		this.mail = userRegistration.getMail();
+		this.firstName = user.getFirstName();
+		this.lastName = user.getLastName();
+		this.gender = user.getGender();
+		this.tell = user.getTell();
+		this.mail = user.getMail();
 //		this.registrationArea = userRegistration.getRegistrationArea();
 		this.registrationDate = new Timestamp(System.currentTimeMillis());
 	}
 
 	public UserEntity() {
-		super();
 	}
 
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -116,33 +112,33 @@ public class UserEntity {
 					@JoinColumn(name = "ID", referencedColumnName = "ID") })
 	private ThumbnailEntity thumbnailEntity;
 
-	//	@Override
-	//	public Collection<? extends GrantedAuthority> getAuthorities() {
-	//		return ;
-	//	}
-	//
-	//	@Override
-	//	public String getUsername() {
-	//		return this.firstName + this.lastName;
-	//	}
-	//
-	//	@Override
-	//	public boolean isAccountNonExpired() { //アカウントの有効期限が切れていない
-	//		return false;
-	//	}
-	//
-	//	@Override
-	//	public boolean isAccountNonLocked() { //アカウントがロックされていない
-	//		return false;
-	//	}
-	//
-	//	@Override
-	//	public boolean isCredentialsNonExpired() { //資格情報の有効期限が切れていない
-	//		return false;
-	//	}
-	//
-	//	@Override
-	//	public boolean isEnabled() { //有効
-	//		return this.activation;
-	//	}
+//	@Override
+//	public Collection<? extends GrantedAuthority> getAuthorities() {
+//		return null;
+//	}
+//
+//	@Override
+//	public String getUsername() {
+//		return this.firstName + this.lastName;
+//	}
+//
+//	@Override
+//	public boolean isAccountNonExpired() { //アカウントの有効期限が切れていない
+//		return false;
+//	}
+//
+//	@Override
+//	public boolean isAccountNonLocked() { //アカウントがロックされていない
+//		return false;
+//	}
+//
+//	@Override
+//	public boolean isCredentialsNonExpired() { //資格情報の有効期限が切れていない
+//		return false;
+//	}
+//
+//	@Override
+//	public boolean isEnabled() { //有効
+//		return this.activation;
+//	}
 }

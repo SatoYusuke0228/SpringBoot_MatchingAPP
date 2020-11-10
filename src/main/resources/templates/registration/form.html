@@ -8,7 +8,7 @@
 	<main th:object="${user}" >
 
 		<div class="maincol">
-			<form th:action="@{'/user/registration/confirmation'}" method="POST">
+			<form th:action="@{'/registration/confirmation'}" method="POST">
 
 				<!--/* 決定済みのユーザータイプ */-->
 				<input type="hidden" th:field="*{userType}" th:value="*{userType}" />
@@ -21,14 +21,14 @@
 						<!--/* パスワード１回目の入力 */-->
 						<div class="form-group col-md-6">
 							<label for="password"> パスワード </label> <br> <input
-								type="text" th:field="*{password}" class="form-control" /> <span
+								type="password" th:field="*{password}" class="form-control" /> <span
 								th:if="${#fields.hasErrors('password')}" th:errors="*{password}">ErrorMessage</span>
 						</div>
 
 						<!--/* パスワード２回目の入力(確認) */-->
 						<div class="form-group col-md-6">
 							<label for="password_auth"> パスワード確認 </label> <br> <input
-								type="text" th:field="*{password_auth}" class="form-control" />
+								type="password" th:field="*{password_auth}" class="form-control" />
 							<span th:if="${#fields.hasErrors('password_auth')}"
 								th:errors="*{password_auth}"> ErrorMessage</span>
 						</div>

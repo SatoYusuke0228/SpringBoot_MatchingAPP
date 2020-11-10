@@ -1,19 +1,14 @@
 package net.user.employee;
 
-import javax.validation.constraints.NotBlank;
-
 import lombok.Data;
 
 @Data
 public class Employee {
 
-	@NotBlank
 	private String birthYear;
 
-	@NotBlank
 	private String birthMonth;
 
-	@NotBlank
 	private String birthDay;
 
 //	@NotBlank
@@ -39,15 +34,31 @@ public class Employee {
 
 	private String selfPR;
 
-	public Employee() {
-
-	}
-
 	/**
 	 * 学校を卒業したか否かのフラグ
 	 * @return 卒業Flag
 	 */
-	public boolean getGraduate() {
+	public boolean isGraduate() {
 		return this.graduate;
+	}
+
+	public Employee() {
+
+	}
+
+
+	public Employee(String hoge) {
+
+		this.birthYear = hoge + "年生まれ";
+		this.birthMonth = hoge + "月生まれ";
+		this.birthDay = hoge + "日生まれ";
+		this.schoolType = hoge + "制の学校";
+		this.schoolName = hoge + "大学";
+		this.faculty = hoge + "学部";
+		this.department = hoge + "学科";
+		this.graduate = true;
+		this.graduateYear = hoge + "年卒業";
+		this.graduateMonth = hoge + "月卒業";
+		this.selfPR = hoge + hoge + hoge + hoge;
 	}
 }

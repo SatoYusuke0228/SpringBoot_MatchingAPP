@@ -42,7 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	 * @param  <code>.antMatchers("/admin/**").authenticated()</code>
 	 *         「"/admin"のパスのページは全て認証が必要」と設定
 	 *
-	 * @param  .formLogin().permitAll();
+	 * @param  <code>.formLogin().permitAll();</code>
 	 *          ログインページをだれでも閲覧できるように設定
 	 *
 	 * @param  .loginProcessingUrl()
@@ -55,11 +55,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configure(HttpSecurity http) throws Exception {
 
 		http.authorizeRequests()
-				//.anyRequest().authenticated()
 				//誰でもアクセス可能なページ
 				.antMatchers("/", "/index").permitAll()
 				.antMatchers("/registration/**").permitAll()
 				.anyRequest().authenticated();
+
 		//アクセスに権限が必要なぺージ
 		//				.antMatchers("/login-success").authenticated()
 		//				.antMatchers("/admin/**").authenticated()
@@ -70,16 +70,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.formLogin()
 				.loginPage("/login")
 				.loginProcessingUrl("/authenticate")
-				.usernameParameter("userName") //HTML[name="userName"]と同一
+				.usernameParameter("mail") //HTML[name="mail"]と同一
 				.passwordParameter("password") //HTML[name="password"]と同一
 				.failureUrl("/login?error")
 				.defaultSuccessUrl("/login-success")
 				.permitAll()
-			.and()
+				.and()
 				.logout()
 				.logoutUrl("/logout")
 				.logoutSuccessUrl("/login?logout")
 				.permitAll();
+	}
+
+	@Bean
+	PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+
+	@Autowired
+	void configureAuthenticationManager(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(userDetailsService)
+				.passwordEncoder(passwordEncoder());
 	}
 
 	/**
@@ -98,16 +109,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.build();
 
 		return new InMemoryUserDetailsManager(user);
-	}
-
-	@Bean
-	PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
-
-	@Autowired
-	void configureAuthenticationManager(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService)
-				.passwordEncoder(passwordEncoder());
 	}
 }

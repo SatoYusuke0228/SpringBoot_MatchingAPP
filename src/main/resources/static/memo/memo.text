@@ -9,32 +9,56 @@ test
 ◆ローカルリポジトリのPATH
 C:\eclipse\pleiades\workspace\SpringBoot_MatchingAPP
 
+
+
+
+
+
+
 ◆追加したい機能
+
 ●ユーザー登録機能
 〆ユーザー登録段階でユーザータイプ(0==student , 1==engineer)をそれぞれ決定し、ユーザータイプに応じたテーブルを作成する機能
 ・サムネイルテーブルを用意してユーザープロフィールのサムネイル画像を設定できるようにしたい
 ・登録段階でメールアドレスにURLを送信し、そのURLを踏むことでアクティベーション可能になる機能
 ・パスワードの暗号化機能（できれば自作のバリデーションチェックを追加もしたい）
 ・
+
 ●ログイン機能
 ・
+
 ●プロフィール編集機能
+
 ●メインコンテンツ
 ・求職者の一覧を表示できる機能
+
 ●メッセージ機能
 ・メッセージ承認機能
 ・template文を登録できる機能
+
 ●気になる人を登録できる機能
+
 ●気に入らない人を非表示(ブロック)できる機能
+
 ●通報機能
+
 ●管理者機能
+
+
+
+
+
+
+
 
 
 ◆発生した問題
 
+
+
 ●bit型（SQL）boolean型（ENTITYクラス）のキャストの仕方がわからない
 
-・発生日 11/04
+・2020/11/04
 
 ・参考URL
 https://qiita.com/seiketkm/items/9d069348c2906a6ae011
@@ -55,3 +79,15 @@ CREATE FUNCTION b2n(bool) RETURNS Bit AS
 LANGUAGE SQL;
 
 create cast(bool as Bit) WITH FUNCTION b2n(bool) AS ASSIGNMENT;
+
+
+
+●ログイン機能において@Mapperの使い方がイマイチわからない
+
+・2020/11/10
+
+・参考URL
+https://qiita.com/yamateion/items/c1affc4fa8defa814a41
+
+・解決方法
+@Mapperの使用をあきらめてJPAを使用して作成することにする

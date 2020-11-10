@@ -75,7 +75,7 @@ public class EmployeeEntity {
 		this.schoolName =employee.getSchoolName();
 		this.faculty = employee.getFaculty();
 		this.department = employee.getDepartment();
-		this.graduate = employee.getGraduate();
+		this.graduate = employee.isGraduate();
 		this.graduateYear = employee.getGraduateYear();
 		this.graduateMonth = employee.getGraduateMonth();
 		this.selfPR = employee.getSelfPR();

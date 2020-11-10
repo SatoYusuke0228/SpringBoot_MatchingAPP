@@ -1,13 +1,16 @@
 package net;
 
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MatchingApp {
+public class MatchingApp implements CommandLineRunner {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MatchingApp.class, args);
 	}
 
+	@Override
+	public void run(String... args) throws Exception {}
 }

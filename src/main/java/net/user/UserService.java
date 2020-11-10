@@ -22,10 +22,12 @@ public abstract interface UserService {
 	/**
 	 * ID検索でselect文を実行するメソッド
 	 */
-	public abstract UserEntity getOne(Long id) ;
+	public abstract UserEntity getOne(Long id);
 
 	/**
 	 * テーブル内の全件を取得するメソッド
 	 */
 	public abstract List<UserEntity> findAll();
+
+
 }
