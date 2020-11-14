@@ -5,7 +5,7 @@
 <title>入力画面</title>
 </head>
 <body>
-	<main th:object="${user}" >
+	<main th:object="${user}">
 
 		<div class="maincol">
 			<form th:action="@{'/registration/confirmation'}" method="POST">
@@ -21,16 +21,20 @@
 						<!--/* パスワード１回目の入力 */-->
 						<div class="form-group col-md-6">
 							<label for="password"> パスワード </label> <br> <input
-								type="password" th:field="*{password}" class="form-control" /> <span
-								th:if="${#fields.hasErrors('password')}" th:errors="*{password}">ErrorMessage</span>
+								type="password" th:field="*{password}" class="form-control" />
+							<span th:if="${#fields.hasErrors('password')}"
+								th:errors="*{password}">ErrorMessage</span>
 						</div>
 
 						<!--/* パスワード２回目の入力(確認) */-->
 						<div class="form-group col-md-6">
-							<label for="password_auth"> パスワード確認 </label> <br> <input
-								type="password" th:field="*{password_auth}" class="form-control" />
-							<span th:if="${#fields.hasErrors('password_auth')}"
-								th:errors="*{password_auth}"> ErrorMessage</span>
+
+							<label for="reEnterPassword"> パスワード確認 </label> <br> <input
+								type="password" th:field="*{reEnterPassword}"
+								class="form-control" /> <span
+								th:if="${#fields.hasErrors('reEnterPassword')}"
+								th:errors="*{reEnterPassword}">ErrorMessage</span>
+
 						</div>
 					</div>
 
@@ -60,8 +64,8 @@
 							class="form-control" th:field="*{gender}" id="male" th:value="男性" />
 						男性 <input type="radio" class="form-control" th:field="*{gender}"
 							id="female" th:value="女性" /> 女性 <input type="radio"
-							class="form-control" th:field="*{gender}" id="other" th:value="その他" />
-						その他
+							class="form-control" th:field="*{gender}" id="other"
+							th:value="その他" /> その他
 					</div>
 
 					<!--/* 電話番号 */-->
@@ -90,7 +94,8 @@
 
 				<!--/* 確認画面ボタン */-->
 				<div>
-					<br> <button type="submit">確認画面へ進む</button>
+					<br>
+					<button type="submit">確認画面へ進む</button>
 				</div>
 
 			</form>
