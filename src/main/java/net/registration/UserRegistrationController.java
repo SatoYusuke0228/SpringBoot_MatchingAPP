@@ -1,7 +1,6 @@
 package net.registration;
 
 import static net.common.Constant.*;
-import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +38,9 @@ import net.user.thumbnail.ThumbnailService;
 
 @Controller
 public class UserRegistrationController {
+
+	//	@Autowired
+	//	HttpServletRequest request;
 
 	@Autowired
 	private HttpSession session;
@@ -96,7 +98,7 @@ public class UserRegistrationController {
 
 		if ("employee".equals(userType)) {
 			userTypeNum = 0;
-			mav.addObject(EMPLOYEE_OBJECT, new Employee("Test"));
+			mav.addObject(EMPLOYEE_OBJECT, new Employee());
 		} else if ("employer".equals(userType)) {
 			userTypeNum = 1;
 			mav.addObject(EMPLOYER_OBJECT, new Employer());
@@ -125,30 +127,16 @@ public class UserRegistrationController {
 			BindingResult employerBR,
 			ModelAndView mav) {
 
-		System.out.println(user.getFirstName());
-		System.out.println(employee.getFaculty());
-
 		//バリデーションエラーがある場合は元の画面に戻る
 		if (user.getUserType() != 0 && user.getUserType() != 1) {
 			mav.setViewName(REDIRECT + FOLDER_PATH + FileName.SELECT_USER_TYPE);
 			return mav;
-		} else if (user.getUserType() == 0 && (userBR.hasErrors() || employeeBR.hasErrors())) {
+		} else if (user.getUserType() == 0
+				&& (userBR.hasErrors() || employeeBR.hasErrors())) {
 			mav.setViewName(FOLDER_PATH + FileName.FORM);
 			return mav;
-		} else if (user.getUserType() == 1 && (userBR.hasErrors() || employerBR.hasErrors())) {
-			mav.setViewName(FOLDER_PATH + FileName.FORM);
-			return mav;
-		}
-
-		//パスワードの再入力が間違っている場合は元の画面に戻る
-		final String password = user.getPassword();
-		final String passwordAuth = user.getPassword_auth();
-
-		System.out.println(password);
-		System.out.println(passwordAuth);
-
-		if (!password.equals(passwordAuth) || !passwordAuth.equals(password)) {
-			mav.addObject(MESSAGE, "※パスワードが間違っています");
+		} else if (user.getUserType() == 1
+				&& (userBR.hasErrors() || employerBR.hasErrors())) {
 			mav.setViewName(FOLDER_PATH + FileName.FORM);
 			return mav;
 		}
@@ -191,7 +179,7 @@ public class UserRegistrationController {
 	@RequestMapping("/registration/result")
 	public ModelAndView result(
 			@SessionAttribute("user") User user,
-			Object hoge,
+			Object inputtedUserTypeForm,
 			ModelAndView mav) {
 
 		//USERテーブルへの新規登録処理を記述
@@ -200,26 +188,23 @@ public class UserRegistrationController {
 		userService.save(userEntity);
 
 		//EMPLOYEE or EMPLOYERテーブルに新規登録処理の記述
-		 if (user.getUserType() == 0) {
-			hoge = session.getAttribute(EMPLOYEE_OBJECT);
+		if (user.getUserType() == 0) {
+			inputtedUserTypeForm = session.getAttribute(EMPLOYEE_OBJECT);
 			session.setAttribute(EMPLOYEE_OBJECT, null);
-			EmployeeEntity employeeEntity = new EmployeeEntity(userEntity.getId(), (Employee) hoge);
-			employeeService.save(employeeEntity);
+			employeeService.save(new EmployeeEntity(userEntity.getId(), (Employee)inputtedUserTypeForm) );
 		} else if (user.getUserType() == 1) {
-			hoge = (Employer) session.getAttribute(EMPLOYER_OBJECT);
+			inputtedUserTypeForm = (Employer) session.getAttribute(EMPLOYER_OBJECT);
 			session.setAttribute(EMPLOYER_OBJECT, null);
-			EmployerEntity employerEntity = new EmployerEntity(userEntity.getId(), (Employer) hoge);
-			employerService.save(employerEntity);
+			employerService.save( new EmployerEntity(userEntity.getId(), (Employer) inputtedUserTypeForm) );
 		}
 
 		//TUMBNAILテーブルに新規登録
 		ThumbnailEntity thumbnailEntity = new ThumbnailEntity(userEntity.getId());
 		thumbnailService.save(thumbnailEntity);
 
-//		do {
-//		メール確認FlagをONにするためのメールの送信処理を記述
-//		} while(hogehoge);
-
+		//do {
+		//	メール確認FlagをONにするためのメールの送信処理を記述
+		//} while(hogehoge);
 
 		mav.setViewName(FOLDER_PATH + FileName.RESULT);
 
@@ -228,7 +213,7 @@ public class UserRegistrationController {
 
 	//ユーザーの登録アドレスに受信した登録確認メール内のリンクを踏むことでアカウントのMAIL_VERFIEDを有効化
 	//ユーザー登録時に選択されたユーザータイプに応じてSTUDENT_TABLE or ENGINEER_TABLEを作成する入力FORMを表示
-	@RequestMapping(value = "/registration/verified/{id}", method = { GET, POST })
+	@RequestMapping(value = "/registration/verified/{id}")
 	public ModelAndView confirMailVerified(
 			@PathVariable Long id,
 			UserEntity userEntity,
@@ -239,7 +224,7 @@ public class UserRegistrationController {
 		userService.saveAndFlash(userEntity);
 
 		mav.addObject(USER_ENTITY_OBJECT, userEntity);
-		mav.setViewName(FOLDER_PATH + "");
+		mav.setViewName(FOLDER_PATH + "verified");
 
 		return mav;
 	}

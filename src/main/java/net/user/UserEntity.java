@@ -16,7 +16,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
-import net.common.GenderConverter;
+import net.common.converter.GenderConverter;
 import net.user.thumbnail.ThumbnailEntity;
 
 @Entity
@@ -84,12 +84,9 @@ public class UserEntity {
 	 * @param telle
 	 * @param registrationDate
 	 */
-	public UserEntity(net.user.User user) {
+	public UserEntity(User user) {
 
-		if (user.getPassword().equals(user.getPassword_auth())) {
-			this.password = user.getPassword();
-		}
-
+		this.password = user.getPassword();
 		this.userType = user.getUserType();
 		this.activation = true;
 		this.mailVerified = false;
