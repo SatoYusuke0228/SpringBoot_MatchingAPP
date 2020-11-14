@@ -6,19 +6,20 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import lombok.Data;
+import net.common.validation.CompareEquals;
 
 @Data
+@CompareEquals(message = "再入力エラー", value1 = "reEnterPassword", value2 = "password")
 public class User {
 
 	private int userType;
 
-	@Size(min = 1)
 	@NotBlank
+	@Size(min = 8 , max = 20)
+	@Pattern(regexp = "^[a-zA-Z0-9]+$")
 	private String password;
 
-	@Size(min = 1)
-	@NotBlank
-	private String password_auth;
+	private String reEnterPassword;
 
 	@Size(min = 1, max = 32)
 	@NotBlank
