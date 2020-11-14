@@ -1,4 +1,4 @@
-package net.common;
+package net.common.converter;
 
 import javax.persistence.AttributeConverter;
 

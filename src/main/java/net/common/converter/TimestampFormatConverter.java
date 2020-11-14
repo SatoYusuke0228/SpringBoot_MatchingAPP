@@ -1,4 +1,4 @@
-package net.common;
+package net.common.converter;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
