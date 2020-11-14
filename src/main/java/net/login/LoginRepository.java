@@ -17,8 +17,8 @@ public class LoginRepository {
 	 * フォームの入力値から該当するユーザを検索
 	 * 合致するものが無い場合Nullが返される
 	 *
-	 * @param userName
-	 * @return 一致するユーザが存在するとき:UserEntity、存在しないとき:Null
+	 * @param  mail ユーザー登録時に入力されたメールアドレス(unique = true)
+	 * @return 一致するユーザが存在するとき:UserEntity 存在しないとき:Null
 	 */
 	public UserEntity findUser(String mail) {
 
