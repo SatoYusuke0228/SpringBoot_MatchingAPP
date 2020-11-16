@@ -1,6 +1,6 @@
 package net.user.config;
 
-import static net.common.Constant.*;
+import static net.common.constant.Constant.*;
 
 import javax.servlet.http.HttpSession;
 

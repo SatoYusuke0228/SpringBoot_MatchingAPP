@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
-import net.common.Constant;
+import net.common.constant.Constant;
 import net.user.UserEntity;
 
 @Controller

@@ -9,7 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-import net.common.Constant.RoleName;
+import net.common.constant.Constant.RoleName;
 
 @Configuration
 @EnableWebSecurity
@@ -62,10 +62,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/user/employee/**").hasAnyRole(RoleName.ADMIN, RoleName.EMPLOYEE)
 				.antMatchers("/user/employer/**").hasAnyRole(RoleName.ADMIN, RoleName.EMPLOYER)
 				//他は全部ログインが必要なページに設定
-				.anyRequest().authenticated();
+				.anyRequest().authenticated()
 
-		//ログインとログアウト処理の実装
-		http.formLogin()
+		//ログイン処理の実装
+		.and().formLogin()
 				.loginPage("/login")
 				.loginProcessingUrl("/authenticate")
 				.usernameParameter("mail") //HTMLファイルの[name="mail"]タグと同一
@@ -73,11 +73,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				//.failureHandler()
 				.failureUrl("/login?error")
 				.defaultSuccessUrl("/login-success")
-				.permitAll();
+				.permitAll()
 
-		http.logout()
+		//ログアウト処理の実装
+		.and().logout()
 				.logoutUrl("/logout")
 				.logoutSuccessUrl("/login")
+				.clearAuthentication(true)
+				.invalidateHttpSession(true)
 				.permitAll();
 	}
 

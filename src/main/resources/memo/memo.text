@@ -127,13 +127,15 @@ WebSecurityConfigクラスの <code>.hasRole(String 任意の権限名)</code>メソッドの引
 ただし、WebSecurityConfigクラスの<code>.hasRole(String 任意の権限名)</code>メソッドの引数は"ROLE_"を記述してはならない...
 
 
-例 : × <code> String role = "USER";
-               ...page.hasRole("USER"); </code>
+例 : × <code> AuthorityUtils.createAuthorityList("USER");
+               ...(中略)...
+               antMatchers("アクセス権限のあるURL").hasRole("USER"); </code>
 
-     × <code> Strgin role= "ROLE_USER";
-               ...page.hasRole("ROLE_USE"); </code>
+     × <code> AuthorityUtils.createAuthorityList("ROLE_USER)";
+               ...(中略)...
+               antMatchers("アクセス権限のあるURL").hasRole("ROLE_USE"); </code>
 
-     ◎ <code> String role = "ROLE_USER";
-               ...page.hasRole("USER"); </code>
-
+     ◎ <code> AuthorityUtils.createAuthorityList("ROLE_USER");
+               ...(中略)...
+               antMatchers("アクセス権限のあるURL").hasRole("USER"); </code>
 

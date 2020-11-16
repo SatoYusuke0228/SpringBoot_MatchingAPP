@@ -1,6 +1,6 @@
 package net.login;
 
-import static net.common.Constant.RoleName.*;
+import static net.common.constant.Constant.RoleName.*;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -57,7 +57,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	 */
 	private Collection<GrantedAuthority> getAuthorities(UserEntity entity) {
 
-		String authority = ROLE;
+		String authority = new String(ROLE);
 
 		switch (entity.getUserType()) {
 

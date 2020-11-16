@@ -1,6 +1,6 @@
 package net.registration;
 
-import static net.common.Constant.*;
+import static net.common.constant.Constant.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
-import net.common.Constant.FileName;
-import net.common.Constant.FolderName;
-import net.common.Constant.ObjectName;
+import net.common.constant.Constant.FileName;
+import net.common.constant.Constant.FolderName;
+import net.common.constant.Constant.ObjectName;
 import net.user.User;
 import net.user.UserEntity;
 import net.user.UserService;

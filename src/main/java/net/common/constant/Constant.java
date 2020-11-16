@@ -1,4 +1,4 @@
-package net.common;
+package net.common.constant;
 
 /**
  * 定数値をまとめたクラス
