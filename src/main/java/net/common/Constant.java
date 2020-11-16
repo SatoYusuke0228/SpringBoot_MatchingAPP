@@ -51,4 +51,12 @@ public class Constant {
 		public static final String CONFIRMATION = "/confirmation";
 		public static final String RESULT = "/result";
 	}
+
+	public class RoleName {
+		public static final String ROLE = "ROLE_";
+		public static final String ADMIN = "ADMIN";
+		public static final String EMPLOYEE = "EMPLOYEE";
+		public static final String EMPLOYER = "EMPLOYER";
+
+	}
 }

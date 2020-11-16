@@ -1,5 +1,7 @@
 package net.login;
 
+import static net.common.Constant.RoleName.*;
+
 import java.util.Collection;
 import java.util.Optional;
 
@@ -39,13 +41,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 		session.setAttribute("userEntity", userEntity);
 
-		//		権限のリスト
-		//		AdminやUserなどが存在するが、今回は利用しないのでUSERのみを仮で設定
-		//		権限を利用する場合は、DB上で権限テーブル、ユーザ権限テーブルを作成し管理が必要
-		//		List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
-		//		GrantedAuthority authority = new SimpleGrantedAuthority("USER");
-		//		grantList.add(authority);
-
 		UserDetails userDetails = (UserDetails) new User(
 				userEntity.getMail(),
 				userEntity.getPassword(),
@@ -62,14 +57,19 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	 */
 	private Collection<GrantedAuthority> getAuthorities(UserEntity entity) {
 
-		String authority = new String();
+		String authority = ROLE;
 
-		if (entity.getUserType() == -1) {
-			authority = "ADMIN";
-		} else if (entity.getUserType() == 0) {
-			authority = "EMPLOYEE";
-		} else if (entity.getUserType() == 1) {
-			authority = "EMPLOYER";
+		switch (entity.getUserType()) {
+
+		case (-1):
+			authority += ADMIN;
+			break;
+		case (0):
+			authority += EMPLOYEE;
+			break;
+		case (1):
+			authority += EMPLOYER;
+			break;
 		}
 
 		return AuthorityUtils.createAuthorityList(authority);

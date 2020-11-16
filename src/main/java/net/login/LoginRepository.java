@@ -11,19 +11,23 @@ import net.user.UserEntity;
 public class LoginRepository {
 
 	@Autowired
-	EntityManager em;
+	protected EntityManager em;
 
 	/**
 	 * フォームの入力値から該当するユーザを検索
 	 * 合致するものが無い場合Nullが返される
 	 *
-	 * @param  mail ユーザー登録時に入力されたメールアドレス(unique = true)
-	 * @return 一致するユーザが存在するとき:UserEntity 存在しないとき:Null
+	 * @param  <code>mail</code>
+	 *         ログイン画面の入力フォームから取得したメールアドレス
+	 *         ユーザー登録時に入力されたメールアドレスを探すために使用(<code>unique = true</code>)
+	 *
+	 * @return 一致するユーザが存在する場合:<code>UserEntity</code>
+	 *         存在しない場合:<code>Null</code>
 	 */
 	public UserEntity findUser(String mail) {
 
 		//setParameterで引数の値を代入できるようにNamedParameterを利用
-		String query = new String("SELECT * FROM USER_TABLE WHERE MAIL = :mail");
+		final String query = new String("SELECT * FROM USER_TABLE WHERE MAIL = :mail");
 
 		//EntityManagerで取得された結果はオブジェクトとなるのでキャストが必要
 		return (UserEntity) em.createNativeQuery(query, UserEntity.class)

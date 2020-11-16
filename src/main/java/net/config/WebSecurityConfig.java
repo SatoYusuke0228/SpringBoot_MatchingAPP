@@ -1,17 +1,15 @@
 package net.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+
+import net.common.Constant.RoleName;
 
 @Configuration
 @EnableWebSecurity
@@ -46,10 +44,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	 * @param  <code>.formLogin().permitAll();</code>
 	 *          ログインページをだれでも閲覧できるように設定
 	 *
-	 * @param  .loginProcessingUrl()
+	 * @param  <code>.loginProcessingUrl()</code>
 	 *         認証処理に移るためのURLを指定
 	 *
-	 * @param  .defaultSuccessUrl()
+	 * @param  <code>.defaultSuccessUrl()</code>
 	 *         ログインに成功した場合に移動するページのURL
 	 */
 	@Override
@@ -59,24 +57,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				//誰でもアクセス可能なページ
 				.antMatchers("/", "/index").permitAll()
 				.antMatchers("/registration/**").permitAll()
-				.antMatchers("/login-success").authenticated()
-				.antMatchers("/admin/**").authenticated()
-				.antMatchers("/user/**").authenticated();
+				//権限が必要なページ
+				.antMatchers("/admin/**").hasRole(RoleName.ADMIN)
+				.antMatchers("/user/employee/**").hasAnyRole(RoleName.ADMIN, RoleName.EMPLOYEE)
+				.antMatchers("/user/employer/**").hasAnyRole(RoleName.ADMIN, RoleName.EMPLOYER)
+				//他は全部ログインが必要なページに設定
+				.anyRequest().authenticated();
 
-		//ログインページを指定。
-		//ログインページへのアクセスは全員許可する。
+		//ログインとログアウト処理の実装
 		http.formLogin()
 				.loginPage("/login")
 				.loginProcessingUrl("/authenticate")
-				.usernameParameter("mail")     //HTMLファイルの[name="mail"]タグと同一
+				.usernameParameter("mail") //HTMLファイルの[name="mail"]タグと同一
 				.passwordParameter("password") //HTMLファイルの[name="password"]タグと同一
+				//.failureHandler()
 				.failureUrl("/login?error")
 				.defaultSuccessUrl("/login-success")
-				.permitAll()
-				.and()
-				.logout()
+				.permitAll();
+
+		http.logout()
 				.logoutUrl("/logout")
-				.logoutSuccessUrl("/login?logout")
+				.logoutSuccessUrl("/login")
 				.permitAll();
 	}
 
@@ -84,20 +85,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	void configureAuthenticationManager(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService)
 				.passwordEncoder(appConfig.bcryptPasswordEncoder());
-	}
-
-	/**
-	 * ログインユーザとパスワードを静的に登録しているmethod
-	 **/
-	@Bean
-	@Override
-	public UserDetailsService userDetailsService() {
-		UserDetails user = User.withDefaultPasswordEncoder()
-				.username("admin")
-				.password("admin")
-				.roles("ADMIN")
-				.build();
-
-		return new InMemoryUserDetailsManager(user);
 	}
 }

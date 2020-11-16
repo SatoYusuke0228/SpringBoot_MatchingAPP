@@ -1,10 +1,8 @@
 ☆開発者用メモ
 
 ◆ローカルDB
-・DB名
-matching_app
-・ロール名
-test
+・DB名 webapp
+・ロール名 test
 
 ◆ローカルリポジトリのPATH
 C:\eclipse\pleiades\workspace\SpringBoot_MatchingAPP
@@ -18,19 +16,20 @@ C:\eclipse\pleiades\workspace\SpringBoot_MatchingAPP
 ◆追加したい機能
 
 ●ユーザー登録機能
-〆ユーザー登録段階でユーザータイプ(0==student , 1==engineer)をそれぞれ決定し、ユーザータイプに応じたテーブルを作成する機能
+〆ユーザー登録段階でユーザータイプ(0==student , 1==engineer)をそれぞれ決定しユーザータイプに応じたテーブルを作成する機能
 ・サムネイルテーブルを用意してユーザープロフィールのサムネイル画像を設定できるようにしたい
 ・登録段階でメールアドレスにURLを送信し、そのURLを踏むことでアクティベーション可能になる機能
-・パスワードの暗号化機能（できれば自作のバリデーションチェックを追加もしたい）
-・
+〆パスワードの暗号化機能（できれば自作のバリデーションチェックを追加もしたい）
 
 ●ログイン機能
-・
+〆メールアドレス+パスワードでログイン可能になる機能
+・権限ごとに閲覧可能なページの制限機能
 
 ●プロフィール編集機能
 
 ●メインコンテンツ
 ・求職者の一覧を表示できる機能
+・雇用主の一覧を表示できる機能
 
 ●メッセージ機能
 ・メッセージ承認機能
@@ -52,55 +51,44 @@ C:\eclipse\pleiades\workspace\SpringBoot_MatchingAPP
 
 
 
+
 ◇SLQについて
 
 ●発生した問題
-bit型（SQL）boolean型（ENTITYクラス）のキャストの仕方がわからない
+
+bit型（SQL）からboolean型（ENTITYクラスのカラムの型）へのキャストの仕方がわからない
 
 ・参考URL
 https://qiita.com/seiketkm/items/9d069348c2906a6ae011
 https://confrage.jp/spring-boot%E3%81%A7postgresql%E3%81%AEbit1%E3%81%AB%E3%82%A4%E3%83%B3%E3%82%B5%E3%83%BC%E3%83%88%E3%81%99%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AB%E3%83%8F%E3%83%9E%E3%81%A3%E3%81%9F/
 
 ・解決方法
+
 SQLサーバー側で自動で型変換ができるようになる代入コンテキスト（ASSIGNMENT）を定義することで、異なる型のCASTを定義。
 
 ・実装コード
 
-CREATE FUNCTION b2n(bool) RETURNS Bit AS
-'select
-  case
-    when $1 IS TRUE
-    then CAST(1 AS Bit)
-    else CAST(0 AS Bit)
-    end;'
-LANGUAGE SQL;
+<code>
+  CREATE FUNCTION b2n(bool) RETURNS Bit AS
+  'select
+    case
+      when $1 IS TRUE
+      then CAST(1 AS Bit)
+      else CAST(0 AS Bit)
+      end;'
+  LANGUAGE SQL;
+</code>
 
-create cast(bool as Bit) WITH FUNCTION b2n(bool) AS ASSIGNMENT;
+<code>
+  create cast(bool as Bit) WITH FUNCTION b2n(bool) AS ASSIGNMENT;
+</code>
 
-
-◇ログイン機能について
-
-●発生した問題
-@Mapperを使用したDBアクセス方法がよくわからない
-
-・参考URL
-https://qiita.com/yamateion/items/c1affc4fa8defa814a41
-
-・解決方法
-@Mapperの使用をあきらめてJPAを使用して作成することにする
-
-
-
-●発生した問題
-登録時のパスワードでログインしようとするとエンコード前の文字や小文字だと一致しない
-
-・解決方法
-気のせいだった
 
 
 ◇登録機能について
 
 ●発生した問題
+
 会員登録時のパスワードを２回入力した場合にエラーを発生させたい
 
 ・参考URL
@@ -109,3 +97,43 @@ https://arakan-pgm-ai.hatenablog.com/entry/2017/04/08/003859
 ・解決方法
 自作のバリデーションを作成してForm系のクラスにアノテーションを付与し
 フィールドを比較することでvalidationチェックを実施
+
+
+
+◇ログイン機能について
+
+●発生した問題
+
+@Mapperを使用したDBアクセス方法がよくわからない
+
+・参考URL
+https://qiita.com/yamateion/items/c1affc4fa8defa814a41
+
+・解決方法
+@Mapperの使用をあきらめてRepositoryクラスからDBにアクセスする
+
+
+
+●発生した問題
+
+ログインしたユーザーが付与された特定の権限を所持している場合のみ閲覧可能なページを作成したが閲覧できない
+
+・参考URL
+https://qiita.com/yokobonbon/items/7d729bd8085f3fb898bb
+
+・解決方法
+WebSecurityConfigクラスの <code>.hasRole(String 任意の権限名)</code>メソッドの引数は
+『String ("ROLE_" + 任意の権限名)』を想定している為、権限名の文字列を生成した段階で、その頭に"ROLE_"を付けることで認識可能になる。
+ただし、WebSecurityConfigクラスの<code>.hasRole(String 任意の権限名)</code>メソッドの引数は"ROLE_"を記述してはならない...
+
+
+例 : × <code> String role = "USER";
+               ...page.hasRole("USER"); </code>
+
+     × <code> Strgin role= "ROLE_USER";
+               ...page.hasRole("ROLE_USE"); </code>
+
+     ◎ <code> String role = "ROLE_USER";
+               ...page.hasRole("USER"); </code>
+
+

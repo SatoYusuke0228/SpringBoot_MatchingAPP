@@ -1,4 +1,4 @@
-package net.common.validation;
+package net.common.validater;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

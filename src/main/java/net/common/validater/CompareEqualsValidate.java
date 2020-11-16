@@ -1,4 +1,4 @@
-package net.common.validation;
+package net.common.validater;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

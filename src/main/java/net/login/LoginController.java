@@ -21,11 +21,11 @@ public class LoginController {
 	@GetMapping("/login")
 	public ModelAndView login(
 			@RequestParam(value = "error", required = false) String error,
-			@RequestParam(value = "logout", required = false) String logout,
+			//@RequestParam(value = "logout", required = false) String logout,
 			ModelAndView mav) {
 
 		if ("error".equals(error)) {
-			mav.addObject(Constant.MESSAGE, "hogehoge");
+			mav.addObject(Constant.MESSAGE, "エラーメッセージhogehoge");
 		}
 
 		mav.setViewName("login");
@@ -35,8 +35,6 @@ public class LoginController {
 	@RequestMapping("/login-success")
 	public String loginSuccess(
 			@SessionAttribute("userEntity") UserEntity userEntity) {
-
-		System.out.println("ID : " + userEntity.getId());
 
 		return "login-success";
 	}

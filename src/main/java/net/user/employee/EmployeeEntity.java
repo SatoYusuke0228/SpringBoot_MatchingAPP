@@ -37,7 +37,7 @@ public class EmployeeEntity {
 //	private String buildingName;
 
 	@Column(name = "SCHOOL_TYPE")
-	private String schoolType;
+	private int schoolType;
 
 	@Column(name = "SCHOOL_NAME")
 	private String schoolName;

@@ -6,7 +6,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import lombok.Data;
-import net.common.validation.CompareEquals;
+import net.common.validater.CompareEquals;
 
 @Data
 @CompareEquals(message = "再入力エラー", value1 = "reEnterPassword", value2 = "password")
@@ -38,7 +38,7 @@ public class User {
 	@NotBlank
 	private String mail;
 
-	@Pattern(regexp = "0(60|70|80|90|\\d{1,3})\\d{4}\\d{4}")
+	@Pattern(regexp = "^0(60|70|80|90|120|\\d{1,3})\\d{7,8}")
 	@NotBlank
 	private String tell;
 

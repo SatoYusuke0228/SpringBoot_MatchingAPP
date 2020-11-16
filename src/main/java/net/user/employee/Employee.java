@@ -18,7 +18,7 @@ public class Employee {
 //	@NotBlank
 //	private String buildingName;
 
-	private String schoolType;
+	private int schoolType;
 
 	private String schoolName;
 
@@ -52,7 +52,7 @@ public class Employee {
 		this.birthYear = hoge + "年生まれ";
 		this.birthMonth = hoge + "月生まれ";
 		this.birthDay = hoge + "日生まれ";
-		this.schoolType = hoge + "制の学校";
+		this.schoolType = 0;
 		this.schoolName = hoge + "大学";
 		this.faculty = hoge + "学部";
 		this.department = hoge + "学科";

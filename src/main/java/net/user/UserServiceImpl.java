@@ -24,7 +24,6 @@ public class UserServiceImpl implements UserService {
 	public void save(UserEntity entity) {
 
 		entity.setPassword(passwordEncoder.encode(entity.getPassword()));
-		System.out.println(entity.getPassword());
 		repository.save(entity);
 	}
 
