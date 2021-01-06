@@ -1,8 +1,10 @@
 package net.user;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +24,7 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public void save(UserEntity entity) {
-
+		//ハッシュ化
 		entity.setPassword(passwordEncoder.encode(entity.getPassword()));
 		repository.save(entity);
 	}
@@ -52,7 +54,8 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public UserEntity getOne(Long id) {
-		return repository.getOne(id);
+		return Optional.ofNullable(repository.getOne(id))
+				.orElseThrow(() -> new UsernameNotFoundException("User not found."));
 	}
 
 	/**

@@ -19,4 +19,15 @@ public class ThumbnailServiceImpl implements ThumbnailService {
 		repository.saveAndFlush(entity);
 	}
 
+	@Override
+	public ThumbnailEntity getOne(long id) {
+		return repository.getOne(id);
+	}
+
+	public static byte[] getImageFileInAPP(String fileName) {
+
+		return new byte[1024];
+	}
+
+
 }

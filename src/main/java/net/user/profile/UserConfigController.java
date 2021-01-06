@@ -1,4 +1,4 @@
-package net.user.config;
+package net.user.profile;
 
 import static net.common.constant.Constant.*;
 
@@ -42,7 +42,7 @@ public class UserConfigController {
 	 * @param mav
 	 * @return
 	 */
-	@RequestMapping("/user/config/profile/{id}")
+	@RequestMapping("/user/profile/config/{id}")
 	public ModelAndView edit(
 			@PathVariable long id,
 			UserEntity userEntity,

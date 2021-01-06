@@ -28,6 +28,4 @@ public abstract interface UserService {
 	 * テーブル内の全件を取得するメソッド
 	 */
 	public abstract List<UserEntity> findAll();
-
-
 }

@@ -1,0 +1,9 @@
+CREATE TABLE REPORT_TABLE (
+
+	ID bigserial NOT NULL unique,
+	REPORTER_USER bigserial NOT NULL,
+	REPORTED_USER bigserial NOT NULL,
+
+	PRIMARY KEY (ID)
+
+);

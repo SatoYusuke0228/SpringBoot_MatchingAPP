@@ -8,12 +8,11 @@
 C:\eclipse\pleiades\workspace\SpringBoot_MatchingAPP
 
 
+i >= 1 ? g^h : g‹Uh;
 
 
 
-
-
-Ÿ’Ç‰Á‚µ‚½‚¢‹@”\
+’Ç‰Á‚µ‚½‚¢‹@”\
 
 œƒ†[ƒU[“o˜^‹@”\
 Yƒ†[ƒU[“o˜^’iŠK‚Åƒ†[ƒU[ƒ^ƒCƒv(0==student , 1==engineer)‚ğ‚»‚ê‚¼‚êŒˆ’è‚µƒ†[ƒU[ƒ^ƒCƒv‚É‰‚¶‚½ƒe[ƒuƒ‹‚ğì¬‚·‚é‹@”\
@@ -47,6 +46,60 @@ C:\eclipse\pleiades\workspace\SpringBoot_MatchingAPP
 
 
 
+
+ƒy[ƒWˆê——
+
+œƒƒCƒ“ƒRƒ“ƒeƒ“ƒc
+
+E‹EÒˆê——i"/employee"j
+E‹lÒˆê——("/employer")
+  Eƒ†[ƒU[Ú×ƒy[ƒWi"/employe{?}/{id}")
+    Ew˜b‚µ‚½‚¢Ixƒ{ƒ^ƒ“‰Ÿ‰º‚ÅƒŠƒNƒGƒXƒg‘—Miredirectj("/employe{?}/{id}/request")
+    EwƒuƒƒbƒNƒ{ƒ^ƒ“x‰Ÿ‰º‚ÅƒuƒƒbƒNˆê——“o˜^iredirectj("/employe{?}/{id}/block")
+    EƒƒbƒZ[ƒWƒy[ƒW("/employe{?}/{id}/message")
+    
+œƒ†[ƒU[ƒy[ƒW
+
+Eƒ†[ƒU[ƒvƒƒtƒB[ƒ‹ƒy[ƒW
+	Eƒ†[ƒU[ƒvƒƒtƒB[ƒ‹•ÒWƒy[ƒW
+	Eƒ†[ƒU[ƒTƒ€ƒlƒCƒ‹•ÏXƒy[ƒW
+	  Eƒ†[ƒU[ƒvƒƒtƒB[ƒ‹&ƒTƒ€ƒlƒCƒ‹•ÏXŠm”Fƒy[ƒW
+	  Eƒ†[ƒU[ƒvƒƒtƒB[ƒ‹&ƒTƒ€ƒlƒCƒ‹•ÏXƒŠƒUƒ‹ƒgƒy[ƒW
+	
+œŠÇ—Òƒy[ƒW
+
+
+
+
+ƒ†[ƒU[‚ÌŒŸõğŒ‚ÉŠÖ‚µ‚Äg—p‚·‚éƒJƒ‰ƒ€
+
+E‹¤’Ê
+“o˜^’nˆæ
+–¼‘O
+PR•¶
+
+E‹EÒŒŸõ
+ŠwZ–¼
+Šw•”–¼
+Šw‰È–¼
+
+E‹lŒ³ŒŸõ
+‰ïĞ–¼
+
+
+
+ƒVƒXƒeƒ€‚ÉŠÖ‚µ‚Ä
+
+œ”­¶‚µ‚½–â‘è
+
+«‚½‚Ü‚ÉˆÈ‰º‚ÌŒx•¶‚ªo‚é
+ o.a.c.util.SessionIdGeneratorBase : Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [510] milliseconds.
+
+–óFsessionID‚Ì¶¬‚É‚È‚ñ‚©ŠÔ‚©‚©‚è‚·‚¬‚Ä‚é‚æ“I‚ÈŒx
+
+E‰ğŒˆ•û–@
+
+[“I‚È–â‘è‚Å‚Í‚È‚¢‚Ì‚Å¡‚Í•Û—¯
 
 
 
@@ -85,6 +138,9 @@ SQLƒT[ƒo[‘¤‚Å©“®‚ÅŒ^•ÏŠ·‚ª‚Å‚«‚é‚æ‚¤‚É‚È‚é‘ã“üƒRƒ“ƒeƒLƒXƒgiASSIGNMENTj‚ğ’è‹
 
 
 
+
+
+
 “o˜^‹@”\‚É‚Â‚¢‚Ä
 
 œ”­¶‚µ‚½–â‘è
@@ -97,6 +153,9 @@ https://arakan-pgm-ai.hatenablog.com/entry/2017/04/08/003859
 E‰ğŒˆ•û–@
 ©ì‚ÌƒoƒŠƒf[ƒVƒ‡ƒ“‚ğì¬‚µ‚ÄFormŒn‚ÌƒNƒ‰ƒX‚ÉƒAƒmƒe[ƒVƒ‡ƒ“‚ğ•t—^‚µ
 ƒtƒB[ƒ‹ƒh‚ğ”äŠr‚·‚é‚±‚Æ‚Åvalidationƒ`ƒFƒbƒN‚ğÀ{
+
+
+
 
 
 
@@ -122,18 +181,17 @@ https://qiita.com/yamateion/items/c1affc4fa8defa814a41
 https://qiita.com/yokobonbon/items/7d729bd8085f3fb898bb
 
 E‰ğŒˆ•û–@
-WebSecurityConfigƒNƒ‰ƒX‚Ì <code>.hasRole(String ”CˆÓ‚ÌŒ ŒÀ–¼)</code>ƒƒ\ƒbƒh‚Ìˆø”‚Í
-wString ("ROLE_" + ”CˆÓ‚ÌŒ ŒÀ–¼)x‚ğ‘z’è‚µ‚Ä‚¢‚éˆ×AŒ ŒÀ–¼‚Ì•¶š—ñ‚ğ¶¬‚µ‚½’iŠK‚ÅA‚»‚Ì“ª‚É"ROLE_"‚ğ•t‚¯‚é‚±‚Æ‚Å”F¯‰Â”\‚É‚È‚éB
-‚½‚¾‚µAWebSecurityConfigƒNƒ‰ƒX‚Ì<code>.hasRole(String ”CˆÓ‚ÌŒ ŒÀ–¼)</code>ƒƒ\ƒbƒh‚Ìˆø”‚Í"ROLE_"‚ğ‹Lq‚µ‚Ä‚Í‚È‚ç‚È‚¢...
-
+WebSecurityConfigƒNƒ‰ƒX‚Ìƒƒ\ƒbƒh<code>.hasRole("”CˆÓ‚ÌŒ ŒÀ–¼")</code>‚Ìˆø”‚ÍwString ("ROLE_" + "”CˆÓ‚ÌŒ ŒÀ–¼")x‚ğ‘z’è‚µ‚Ä‚¢‚éˆ×A
+UserDetailsƒIƒuƒWƒFƒNƒg¶¬‚Éİ’è‚·‚éŒ ŒÀ–¼‚Ì•¶š—ñ‚ÌÅ‰‚ÉA‚ ‚ç‚©‚¶‚ß"ROLE_"‚ğ•t‚¯‚Ä‚¨‚­•K—v‚ª‚ ‚éB
+¦‚½‚¾‚µAWebSecurityConfigƒNƒ‰ƒX‚Ìƒƒ\ƒbƒh<code>.hasRole("”CˆÓ‚ÌŒ ŒÀ–¼")</code>‚Ìˆø”‚Í"ROLE_"‚ğ‹Lq‚µ‚Ä‚Í‚È‚ç‚È‚¢...
 
 —á : ~ <code> AuthorityUtils.createAuthorityList("USER");
                ...(’†—ª)...
                antMatchers("ƒAƒNƒZƒXŒ ŒÀ‚Ì‚ ‚éURL").hasRole("USER"); </code>
 
-     ~ <code> AuthorityUtils.createAuthorityList("ROLE_USER)";
+     ~ <code> AuthorityUtils.createAuthorityList("ROLE_USER");
                ...(’†—ª)...
-               antMatchers("ƒAƒNƒZƒXŒ ŒÀ‚Ì‚ ‚éURL").hasRole("ROLE_USE"); </code>
+               antMatchers("ƒAƒNƒZƒXŒ ŒÀ‚Ì‚ ‚éURL").hasRole("ROLE_USER"); </code>
 
       <code> AuthorityUtils.createAuthorityList("ROLE_USER");
                ...(’†—ª)...

@@ -9,17 +9,15 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-import net.common.constant.Constant.RoleName;
-
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	UserDetailsService userDetailsService;
+	protected UserDetailsService userDetailsService;
 
 	@Autowired
-	AppConfig appConfig;
+	protected AppConfig appConfig;
 
 	/**
 	 * 「css」や「image」配下のファイルにアクセスする際に
@@ -56,16 +54,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 				//誰でもアクセス可能なページ
 				.antMatchers("/", "/index").permitAll()
-				.antMatchers("/registration/**").permitAll()
-				//権限が必要なページ
-				.antMatchers("/admin/**").hasRole(RoleName.ADMIN)
-				.antMatchers("/user/employee/**").hasAnyRole(RoleName.ADMIN, RoleName.EMPLOYEE)
-				.antMatchers("/user/employer/**").hasAnyRole(RoleName.ADMIN, RoleName.EMPLOYER)
-				//他は全部ログインが必要なページに設定
-				.anyRequest().authenticated()
+				.antMatchers("/registration/**").permitAll();
+		//権限が必要なページ
+		//.antMatchers("/admin/**").hasRole(RoleName.ADMIN)
+		//.antMatchers("/user/employee/**").hasAnyRole(RoleName.ADMIN, RoleName.EMPLOYER)
+		//.antMatchers("/user/employer/**").hasAnyRole(RoleName.ADMIN, RoleName.EMPLOYEE)
+		//他は全部ログインが必要なページに設定
+		//.anyRequest().authenticated()
 
 		//ログイン処理の実装
-		.and().formLogin()
+		http.formLogin()
 				.loginPage("/login")
 				.loginProcessingUrl("/authenticate")
 				.usernameParameter("mail") //HTMLファイルの[name="mail"]タグと同一
@@ -73,10 +71,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				//.failureHandler()
 				.failureUrl("/login?error")
 				.defaultSuccessUrl("/login-success")
-				.permitAll()
+				.permitAll();
 
 		//ログアウト処理の実装
-		.and().logout()
+		http.logout()
 				.logoutUrl("/logout")
 				.logoutSuccessUrl("/login")
 				.clearAuthentication(true)

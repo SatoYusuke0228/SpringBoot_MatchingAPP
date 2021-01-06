@@ -33,7 +33,7 @@ public class UserEntity {
 	@Column(name = "PASSWORD", nullable = false)
 	private String password;
 
-	//0 == STUDENT / 1 == ENGINEER / -1 == ADMIN (予定)
+	// 0 == STUDENT / 1 == ENGINEER / -1 == ADMIN (予定)
 	@Column(name = "USER_TYPE")
 	private int userType;
 
@@ -47,8 +47,9 @@ public class UserEntity {
 	@Column(name = "MAIL_VERIFIED")
 	private boolean mailVerified;
 
-	//@Column(name = "SHOW_FLAG")
-	//private boolean showFlag;
+	//ユーザーアカウントの表示フラグ
+	@Column(name = "SHOW_FLAG")
+	private boolean showFlag;
 
 	@Column(name = "FIRST_NAME", nullable = false)
 	private String firstName;
@@ -66,14 +67,43 @@ public class UserEntity {
 	@Column(name = "MAIL", nullable = false, unique = true)
 	private String mail;
 
-	//登録地域
-	//@Column(name = "REGISTRATION_AREA")
-	//private String registrationArea;
+	@Column(name = "REGISTRATION_AREA")
+	private String registrationArea;
 
 	@Column(name = "REGISTRATION_DATE", nullable = false)
 	private Timestamp registrationDate;
 
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinTable(name = "THUMBNAIL_TABLE", joinColumns = {
+			@JoinColumn(name = "ID", referencedColumnName = "ID") }, inverseJoinColumns = {
+					@JoinColumn(name = "ID", referencedColumnName = "ID") })
+	private ThumbnailEntity thumbnail;
+
+//	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//	@JoinTable(name = "EMPLOYEE_TABLE", joinColumns = {
+//			@JoinColumn(name = "ID", referencedColumnName = "ID") }, inverseJoinColumns = {
+//					@JoinColumn(name = "ID", referencedColumnName = "ID") })
+//	private EmployeeEntity employee;
+//
+//	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//	@JoinTable(name = "EMPLOYER_TABLE", joinColumns = {
+//			@JoinColumn(name = "ID", referencedColumnName = "ID") }, inverseJoinColumns = {
+//					@JoinColumn(name = "ID", referencedColumnName = "ID") })
+//	private EmployerEntity employer;
+//
+//	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//	@JoinTable(name = "TALK_REQUEST_TABLE", joinColumns = {
+//			@JoinColumn(name = "ID", referencedColumnName = "ID") })
+//	private List<TalkRequestEntity> talkRequest;
+//
+//	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//	@JoinTable(name = "USER_BLOCK_TABLE",
+//	joinColumns = { @JoinColumn(name = "ID", referencedColumnName = "ID") })
+//	private List<UserBlockEntity> userBlock;
+
 	/**
+	 * コンストラクタ
+	 *
 	 * @param password
 	 * @param userType
 	 * @param activation
@@ -88,26 +118,20 @@ public class UserEntity {
 
 		this.password = user.getPassword();
 		this.userType = user.getUserType();
-		this.activation = true;
+		this.activation = false;
 		this.mailVerified = false;
-//		this.showFlag = false;
+		this.showFlag = false;
 		this.firstName = user.getFirstName();
 		this.lastName = user.getLastName();
 		this.gender = user.getGender();
 		this.tell = user.getTell();
 		this.mail = user.getMail();
-//		this.registrationArea = userRegistration.getRegistrationArea();
+		this.registrationArea = "テスト地域";
 		this.registrationDate = new Timestamp(System.currentTimeMillis());
 	}
 
 	public UserEntity() {
 	}
-
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "THUMBNAIL_TABLE", joinColumns = {
-			@JoinColumn(name = "ID", referencedColumnName = "ID") }, inverseJoinColumns = {
-					@JoinColumn(name = "ID", referencedColumnName = "ID") })
-	private ThumbnailEntity thumbnailEntity;
 
 //	@Override
 //	public Collection<? extends GrantedAuthority> getAuthorities() {
